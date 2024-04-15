@@ -1,0 +1,44 @@
+import { useState } from 'react'
+
+function App() {
+  const [password, setPassword] = useState("")
+  const [copyText, setCopyText] = useState("Copy")
+
+  function copyToClipboard() {
+    setCopyText("Copied!")
+    window.navigator.clipboard.writeText(password)
+  }
+
+  function generate(){
+    setCopyText("Copy")
+    const characters = "'1234567890-=!@#$%¨&*()_+qwertyuiop[asdfghjklç~]zxcvbnm,.;/QWERTYUIOP{ASDFGHJKLÇ^}ZXCVBNM<>:?"
+    const length = 16
+    let newPassword = ""
+    for (let i = 0; i < length; i++) {
+      const position = Math.floor(Math.random() * characters.length)
+      newPassword += characters[position]
+    }
+    setPassword(newPassword)
+  }
+
+  return (
+    <>
+      <h1>Password generator</h1>
+      <div>
+        <button
+        onClick={generate}
+        >
+          Generate!
+        </button>
+        <button 
+        onClick={copyToClipboard}
+        >
+          {copyText}
+        </button>
+        <div>{password}</div>
+      </div>
+    </>
+  )
+}
+
+export default App
